@@ -1,0 +1,94 @@
+// --- Pin Definitions ---
+const int enablePin = 5;  // ENA (Speed Control)
+const int in1Pin = 4;     // IN1 (Direction)
+const int in2Pin = 3;     // IN2 (Direction)
+
+// Buttons (Original Configuration)
+// Pins 8 & 9 are UP
+// Pins 10 & 11 are DOWN
+const int btnUp1 = 8;     // UP 1 Floor -> Pin 8
+const int btnUp2 = 9;     // UP 2 Floors -> Pin 9
+const int btnDown1 = 10;  // DOWN 1 Floor -> Pin 10
+const int btnDown2 = 11;  // DOWN 2 Floors -> Pin 11
+
+// --- PRECISE TIMING SETTINGS (Milliseconds) ---
+// Based on your measurements:
+const int timeUp1 = 3025;     // 3 sec, 25 ms
+const int timeUp2 = 6027;     // 6 sec, 27 ms
+const int timeDown1 = 2082;   // 2 sec, 82 ms
+const int timeDown2 = 5062;   // 5 sec, 62 ms
+
+// Motor Speed (0-255)
+const int motorSpeed = 255;   
+
+void setup() {
+  pinMode(enablePin, OUTPUT);
+  pinMode(in1Pin, OUTPUT);
+  pinMode(in2Pin, OUTPUT);
+
+  pinMode(btnUp1, INPUT_PULLUP);
+  pinMode(btnUp2, INPUT_PULLUP);
+  pinMode(btnDown1, INPUT_PULLUP);
+  pinMode(btnDown2, INPUT_PULLUP);
+  
+  stopMotor();
+}
+
+void loop() {
+  // --- BUTTON 1: UP 1 FLOOR ---
+  if (digitalRead(btnUp1) == LOW) {
+    moveUp();                   
+    delay(timeUp1);             // Wait exactly 3025 ms
+    stopMotor();                
+    waitForRelease(btnUp1);     
+  }
+
+  // --- BUTTON 2: UP 2 FLOORS ---
+  else if (digitalRead(btnUp2) == LOW) {
+    moveUp();
+    delay(timeUp2);             // Wait exactly 6027 ms
+    stopMotor();
+    waitForRelease(btnUp2);
+  }
+
+  // --- BUTTON 3: DOWN 1 FLOOR ---
+  else if (digitalRead(btnDown1) == LOW) {
+    moveDown();
+    delay(timeDown1);           // Wait exactly 2082 ms
+    stopMotor();
+    waitForRelease(btnDown1);
+  }
+  
+  // --- BUTTON 4: DOWN 2 FLOORS ---
+  else if (digitalRead(btnDown2) == LOW) {
+    moveDown();
+    delay(timeDown2);           // Wait exactly 5062 ms
+    stopMotor();
+    waitForRelease(btnDown2);
+  }
+}
+
+// --- Helper Functions ---
+
+void moveUp() {
+  digitalWrite(in1Pin, HIGH);
+  digitalWrite(in2Pin, LOW);
+  analogWrite(enablePin, motorSpeed);
+}
+
+void moveDown() {
+  digitalWrite(in1Pin, LOW);
+  digitalWrite(in2Pin, HIGH);
+  analogWrite(enablePin, motorSpeed);
+}
+
+void stopMotor() {
+  analogWrite(enablePin, 0);
+  digitalWrite(in1Pin, LOW);
+  digitalWrite(in2Pin, LOW);
+}
+
+void waitForRelease(int pin) {
+  while(digitalRead(pin) == LOW) {}
+  delay(200); 
+}
