@@ -54,7 +54,10 @@ The system operates on an **Event-Driven Sequence**. When a user presses a butto
 ## 🤝 Collaboration & Acknowledgments
 
 This project was developed as a collaborative engineering effort. 
-Adam Tamer Ghobashy - @Adam-Ghobashy
-Mai Ahmed Khalaf - @MaiKhalaf
-Basma Ahmed
-Hazem Mohamed
+Adam Tamer Ghobashy - @Adam-Ghobashy.
+
+Mai Ahmed Khalaf - @MaiKhalaf.
+
+Basma Ahmed.
+
+Hazem Mohamed.
