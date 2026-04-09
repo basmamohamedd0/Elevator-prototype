@@ -59,6 +59,6 @@ Adam Tamer Ghobashy - @Adam-Ghobashy.
 
 Mai Ahmed Khalaf - @MaiKhalaf.
 
-Basma Ahmed.
+Basma Mohamed.
 
 Hazem Mohamed.
